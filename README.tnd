@@ -1,0 +1,16 @@
+# Linux 反编译、回编译工具
+## 曦颜XY 版权所有
+
+## 修订版本：Ver1.0_2018.04.15
+
+### 本文件请放在英文目录下运行
+
+  运行方法：
+  
+  $ chmod a+x xiyan.sh
+
+  $ ./xiyan
+
+###注意
+如果反编译或者回编译出错，排除本身apk(jar)问题后，还是出错，tools内置了其他版本apktool.jar,自行重命名为apktool.jar
+![xiyan](https://static.oschina.net/uploads/space/2018/0415/205447_ckFu_2700265.png "xiyan")

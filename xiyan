@@ -1,0 +1,234 @@
+#!/bin/bash
+#
+# Author: xiyan
+# 版权所有：曦颜XY 
+# 如果不懂shell，就别瞎改
+
+clear
+#定义目录
+export xiyan=$(pwd)
+
+#定义颜色
+redt=$(tput setaf 1)
+bluet=$(tput setaf 4)
+magentat=$(tput setaf 5)
+cyant=$(tput setaf 6)
+bold=$(tput bold)
+stand=$(tput smso)
+normal=$(tput sgr0)
+clears=$(tput clear)
+
+
+xiyan() {
+	echo "$clears"
+	echo ""
+	echo "------------------------------------------------------"
+	echo "$bold$stand                曦颜 反编译/回编译 脚本               $normal"
+	echo "$italic$stand                       by Xiyan                       $normal"
+	echo "------------------------------------------------------"
+	echo "${cyant}环境需要：java 并且请在英文目录执行$normal"
+	echo ""
+}
+
+#安装框架
+installapk() {
+    choice=""
+	while [[ ! ${choice} =~ ^[0]$ ]] && [[ ! $choice = "m" && ! $choice = "q" ]]; do
+		xiyan
+		echo "${bluet}您的目录：$normal"$xiyan
+		echo ""
+		echo "0. 安装框架"
+		echo "${cyant}m. 主菜单"
+		echo "${magentat}q. 退出$normal"
+		echo ""
+		read -n 1 -p "请选择：" choice
+		echo ""
+		echo ""
+	done
+    # 开始安装框架
+	if [[ $choice = "0" ]]; then
+		java -jar $xiyan/tools/apktool.jar if *.apk
+		echo "---------------------------------------------------"
+		echo "${redt}注意$normal：如果出现:" ... 数字 more""
+		echo "${cyant}那么请复制框架文件到脚本所在目录$normal"
+		echo ""
+		echo "按任意键返回主菜单"
+		echo "---------------------------------------------------"
+	    read key
+		exec ./xiyan.sh
+		return 1
+	# 返回主菜单
+	elif [[ $choice = "m" ]]; then
+		exec ./xiyan.sh
+		return 1
+	# 退出
+	elif [[ $choice = "q" ]]; then
+		exit
+	fi
+}
+
+#反编译主函数
+decode() {
+    choice=""
+	while [[ ! ${choice} =~ ^[0-1]$ ]] && [[ ! $choice = "m" && ! $choice = "q" ]]; do
+		xiyan
+		echo "${bluet}您的目录：$normal"$xiyan
+		echo ""
+		echo "0. 反编译APK"
+		echo "1. 反编译JAR"
+		echo "${cyant}m. 主菜单"
+		echo "${magentat}q. 退出$normal"
+		echo ""
+		read -n 1 -p "请选择：" choice
+		echo ""
+		echo ""
+	done
+    # 反编译APK
+	if [[ $choice = "0" ]]; then
+        java -jar $xiyan/tools/apktool.jar --quiet d -f *.apk -o $xiyan/decodeapk/out
+		echo "---------------------------------------------------"
+		echo "${redt}注意$normal：如果出现:" Input file *.apk was not found or was not readable""
+		echo "${cyant}那么请复制反编译文件到脚本所在目录$normal"
+		echo "$blod$magentat反编译完成目录是：$xiyan/decodeapk$normal"
+		echo "执行完毕_按任意键返回反编译菜单"
+		echo "---------------------------------------------------"
+	    read key
+		decode
+		return 1
+	# 反编译JAR
+	elif [[ $choice = "1" ]]; then
+		java -jar $xiyan/tools/apktool.jar --quiet d -f *.jar -o $xiyan/decodejar/out
+		echo "---------------------------------------------------"
+		echo "${redt}注意$normal：如果出现:" Input file *.jar was not found or was not readable""
+		echo "${cyant}那么请复制反编译文件到脚本所在目录$normal"
+		echo "$blod$magentat反编译完成目录是：$xiyan/decodejar$normal"
+		echo "执行完毕_按任意键返回反编译菜单"
+		echo "---------------------------------------------------"
+	    read key
+		decode
+		return 1
+	# 返回主菜单
+	elif [[ $choice = "m" ]]; then
+		exec ./xiyan.sh
+		return 1
+	# 退出
+	elif [[ $choice = "q" ]]; then
+		exit
+	fi
+}
+
+#回编译主函数
+recode() {
+    choice=""
+	while [[ ! ${choice} =~ ^[0-1]$ ]] && [[ ! $choice = "m" && ! $choice = "q" ]]; do
+		xiyan
+		echo "${redt}复制回编译文件夹到你的目录下，并且重命名为：out$normal"
+		echo "${bluet}您的目录：$normal"$xiyan
+		echo ""
+		echo "0. 回编译APK"
+		echo "1. 回编译JAR"
+		echo "${cyant}m. 主菜单"
+		echo "${magentat}q. 退出$normal"
+		echo ""
+		read -n 1 -p "请选择：" choice
+		echo ""
+		echo ""
+	done
+    # 回编译APK
+	if [[ $choice = "0" ]]; then
+        java -jar $xiyan/tools/apktool.jar --quiet b out -o new.apk
+		echo "---------------------------------------------------"
+		echo "${redt}注意$normal：如果出现:" ... 数字 more""
+		echo "${cyant}那么请复制回编译文件夹到脚本所在目录$normal"
+		echo "$blod$magentat回编译完成文件是：new.apk$normal"
+		echo "执行完毕_按任意键返回回编译菜单"
+		echo "---------------------------------------------------"
+	    read key
+		recode
+		return 1
+	# 回编译JAR
+	elif [[ $choice = "1" ]]; then
+		java -jar $xiyan/tools/apktool.jar --quiet b out -o new.jar
+		echo "---------------------------------------------------"
+		echo "${redt}注意$normal：如果出现:" ... 数字 more""
+		echo "${cyant}那么请复制回编译文件到脚本所在目录$normal"
+		echo "$blod$magentat回编译完成文件是：new.jar$normal"
+		echo "执行完毕_按任意键返回回编译菜单"
+		echo "---------------------------------------------------"
+	    read key
+		recode
+		return 1
+	# 返回主菜单
+	elif [[ $choice = "m" ]]; then
+		exec ./xiyan.sh
+		return 1
+	# 退出
+	elif [[ $choice = "q" ]]; then
+		exit
+	fi
+}
+sign() {
+	echo ""
+	echo "---------------------------------------------------"
+	echo ""
+	echo "${redt}请将签名的APK/JAR重命名为new.apk/mew.jar,放到脚本同目录$normal"
+	echo "按任意键开始签名APK/JAR"
+	echo ""
+	echo "---------------------------------------------------"
+	read key
+	if [ -f new.apk ];then
+	    java -jar $xiyan/sign/signapk.jar $xiyan/sign/testkey.x509.pem $xiyan/sign/testkey.pk8 new.apk signed.apk
+	fi
+	if [ -f new.jar ];then
+	    java -jar $xiyan/sign/signapk.jar $xiyan/sign/testkey.x509.pem $xiyan/sign/testkey.pk8 new.jar signed.jar
+	fi
+	echo "---------------------------------------------------"
+	echo "$blod$magentat签名完成文件是：signed.jar/signed.apk$normal"
+	echo "执行完毕_按任意键返回主菜单"
+	echo "---------------------------------------------------"
+	read key
+	exec ./xiyan.sh
+}
+
+if [ ! -d $(tools) ]; then
+     xiyan
+     echo “注意！”
+     echo “你得去下载tools”
+     echo “去GitHub FlymeSO下载，解压放到主目录然后文件夹重命名为tools”
+else 
+choice=""
+while [[ ! ${choice} =~ ^[0-3]$ ]] && [[ ! $choice = "q" ]]; do
+	xiyan
+	echo "${bluet}您的目录：$normal"$xiyan
+	echo ""
+    echo "0. 安装APK框架"
+	echo "1. 反编译"
+	echo "2. 回编译"
+	echo "3. 签名"
+	echo "${magentat}q. 退出$normal"
+	echo ""
+	read -n 1 -p "请选择：" choice
+done
+
+# 安装框架
+if [[ $choice = "0" ]]; then
+	installapk
+# 反编译
+elif [[ $choice = "1" ]]; then
+    decode
+# 回编译
+elif [[ $choice = "2" ]]; then
+	recode
+# 签名
+elif [[ $choice = "3" ]]; then
+	sign
+# 退出
+elif [[ $choice = "q" ]]; then
+	echo ""
+	echo ""
+	exit
+
+fi
+
+fi
+
