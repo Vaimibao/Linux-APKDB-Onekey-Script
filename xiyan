@@ -189,13 +189,6 @@ sign() {
 	read key
 	exec ./xiyan.sh
 }
-
-if [ ! -d $(tools) ]; then
-     xiyan
-     echo “注意！”
-     echo “你得去下载tools”
-     echo “去GitHub FlymeSO下载，解压放到主目录然后文件夹重命名为tools”
-else 
 choice=""
 while [[ ! ${choice} =~ ^[0-3]$ ]] && [[ ! $choice = "q" ]]; do
 	xiyan
@@ -227,8 +220,6 @@ elif [[ $choice = "q" ]]; then
 	echo ""
 	echo ""
 	exit
-
-fi
 
 fi
 
