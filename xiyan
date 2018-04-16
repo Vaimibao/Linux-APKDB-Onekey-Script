@@ -55,11 +55,11 @@ installapk() {
 		echo "按任意键返回主菜单"
 		echo "---------------------------------------------------"
 	    read key
-		exec ./xiyan.sh
+		exec ./xiyan
 		return 1
 	# 返回主菜单
 	elif [[ $choice = "m" ]]; then
-		exec ./xiyan.sh
+		exec ./xiyan
 		return 1
 	# 退出
 	elif [[ $choice = "q" ]]; then
@@ -109,7 +109,7 @@ decode() {
 		return 1
 	# 返回主菜单
 	elif [[ $choice = "m" ]]; then
-		exec ./xiyan.sh
+		exec ./xiyan
 		return 1
 	# 退出
 	elif [[ $choice = "q" ]]; then
@@ -160,7 +160,7 @@ recode() {
 		return 1
 	# 返回主菜单
 	elif [[ $choice = "m" ]]; then
-		exec ./xiyan.sh
+		exec ./xiyan
 		return 1
 	# 退出
 	elif [[ $choice = "q" ]]; then
@@ -187,7 +187,7 @@ sign() {
 	echo "执行完毕_按任意键返回主菜单"
 	echo "---------------------------------------------------"
 	read key
-	exec ./xiyan.sh
+	exec ./xiyan
 }
 choice=""
 while [[ ! ${choice} =~ ^[0-3]$ ]] && [[ ! $choice = "q" ]]; do
